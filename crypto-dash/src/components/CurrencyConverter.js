@@ -7,6 +7,8 @@ const CurrencyConverter = () => {
   const [primaryCurrency, setPrimaryCurrency] = useState(currencies[0]);
   const [secondaryCurrency, setSecondaryCurrency] = useState(currencies[0]);
   const [amount, setAmount] = useState(0);
+  const [exchangeRate, setExchangeRate] = useState(0);
+  const [result, setResult] = useState(0);
 
   const convertCurrency = () => {
     const options = {
@@ -22,11 +24,15 @@ const CurrencyConverter = () => {
         'X-RapidAPI-Key': 'cc8a4ee81fmshf8e5a471f316c5dp189b02jsn84406eb4c212',
       },
     };
-
+    let exchange_rate = 0;
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data);
+        exchange_rate =
+          response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
+        console.log(exchange_rate);
+        setExchangeRate(exchange_rate);
+        setResult(exchange_rate * amount);
       })
       .catch((error) => {
         console.error(error);
@@ -65,7 +71,12 @@ const CurrencyConverter = () => {
             <tr>
               <td>Secondary Currency:</td>
               <td>
-                <input type="number" name="currency-amount-2" value={''} />
+                <input
+                  type="number"
+                  name="currency-amount-2"
+                  value={result}
+                  disabled={true}
+                />
               </td>
               <td>
                 <select
@@ -91,7 +102,11 @@ const CurrencyConverter = () => {
         </button>
       </div>
 
-      <ExchangeRate />
+      <ExchangeRate
+        exchangeRate={exchangeRate}
+        primaryCurrency={primaryCurrency}
+        secondaryCurrency={secondaryCurrency}
+      />
     </div>
   );
 };
