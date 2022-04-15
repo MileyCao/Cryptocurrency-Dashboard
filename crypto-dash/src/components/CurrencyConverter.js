@@ -21,7 +21,7 @@ const CurrencyConverter = () => {
       },
       headers: {
         'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com',
-        'X-RapidAPI-Key': 'cc8a4ee81fmshf8e5a471f316c5dp189b02jsn84406eb4c212',
+        'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
       },
     };
     let exchange_rate = 0;
