@@ -3,9 +3,13 @@ import NewsFeed from './components/NewsFeed';
 
 const App = () => {
   return (
-    <div className="app">
-      <CurrencyConverter />
-      <NewsFeed />
+    <div className="dashboard">
+      <div className="emptySpace1" />
+      <div className="landing">
+        <CurrencyConverter />
+        <NewsFeed />
+      </div>
+      <div className="emptySpace1" style={{ height: 420 }} />
     </div>
   );
 };

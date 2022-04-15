@@ -26,11 +26,15 @@ const NewsFeed = () => {
   }, []);
 
   return (
-    <div className="newsFeed">
+    <div className="newsFeed newsBackground" style={{ color: 'white' }}>
       <h2>NEWS FEED</h2>
       {articles?.map((article, _index) => (
         <div key={_index}>
-          <a href={article.url} target="_blank">
+          <a
+            href={article.url}
+            target="_blank"
+            style={{ color: 'white', textDecoration: 'none' }}
+          >
             <p>{article.title}</p>
           </a>
         </div>
