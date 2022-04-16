@@ -3,7 +3,7 @@ const ExchangeRate = ({ exchangeData }) => {
     <div className="exchangeRate">
       <div className="tagLine">Current Exchange Rate</div>
       <div className="exchangeRateContainer">
-        <h1>{exchangeData.chosenExchangeRate}</h1>
+        <h2>{parseFloat(exchangeData.chosenExchangeRate).toFixed(2)}</h2>
         <p>
           {exchangeData.chosenPrimaryCurrency} to{' '}
           {exchangeData.chosenSecondaryCurrency}

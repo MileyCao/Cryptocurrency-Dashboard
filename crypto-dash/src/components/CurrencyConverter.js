@@ -3,7 +3,7 @@ import axios from 'axios';
 import ExchangeRate from './ExchangeRate';
 
 const CurrencyConverter = () => {
-  const currencies = ['ADA', 'BTC', 'CNY', 'CAD', 'ETH', 'LTC', 'USD', 'XRP'];
+  const currencies = ['BTC', 'CNY', 'CAD', 'ETH', 'LTC', 'USD', 'XRP'];
   const [primaryCurrency, setPrimaryCurrency] = useState(currencies[0]);
   const [secondaryCurrency, setSecondaryCurrency] = useState(currencies[0]);
   const [amount, setAmount] = useState(0);
@@ -11,30 +11,24 @@ const CurrencyConverter = () => {
   const [exchangeData, setExchangeData] = useState({
     chosenPrimaryCurrency: currencies[0],
     chosenSecondaryCurrency: currencies[0],
-    chosenExchangeRate: 0,
+    chosenExchangeRate: 1,
   });
 
   const convertCurrency = () => {
     const options = {
       method: 'GET',
-      url: 'https://alpha-vantage.p.rapidapi.com/query',
+      url: 'http://localhost:8000/convert',
       params: {
         from_currency: primaryCurrency,
         function: 'CURRENCY_EXCHANGE_RATE',
         to_currency: secondaryCurrency,
-      },
-      headers: {
-        'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com',
-        'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
       },
     };
     let exchange_rate = 0;
     axios
       .request(options)
       .then((response) => {
-        exchange_rate =
-          response.data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
-        console.log(exchange_rate);
+        exchange_rate = response.data;
         setExchangeData({
           chosenPrimaryCurrency: primaryCurrency,
           chosenSecondaryCurrency: secondaryCurrency,
@@ -76,7 +70,9 @@ const CurrencyConverter = () => {
                     onChange={(e) => setPrimaryCurrency(e.target.value)}
                   >
                     {currencies.map((currency, _index) => (
-                      <option key={_index}>{currency}</option>
+                      <option key={_index} className="optionRow">
+                        {currency}
+                      </option>
                     ))}
                   </select>
                 </td>
@@ -105,7 +101,9 @@ const CurrencyConverter = () => {
                     onChange={(e) => setSecondaryCurrency(e.target.value)}
                   >
                     {currencies.map((currency, _index) => (
-                      <option key={_index}>{currency}</option>
+                      <option key={_index} className="optionRow">
+                        {currency}
+                      </option>
                     ))}
                   </select>
                 </td>
